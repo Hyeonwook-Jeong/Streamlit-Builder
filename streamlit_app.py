@@ -26,6 +26,8 @@ else:
   else:
     st.success('Proceed to entering your prompt message!', icon='👇')
 
+client = OpenAI(api_key=api_key)
+
 tabs = st.tabs(['Show', 'Tell'])
 
 # Show how the app should be built
