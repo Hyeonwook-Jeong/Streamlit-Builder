@@ -12,9 +12,19 @@ st.set_page_config(page_title='🛠 Streamlit App Builder', page_icon='🛠')
 st.title('🛠 Streamlit App Builder')
 st.info('In this app you can **Show** (provide mock-up image) or **Tell** (provide text prompt) how you want your Streamlit app to be built.')
 
-# Initialize OpenAI client with API key
-api_key = st.secrets['OPENAI_API_KEY']
-client = OpenAI(api_key=api_key)
+# # Initialize OpenAI client with API key
+# api_key = st.secrets['OPENAI_API_KEY']
+# client = OpenAI(api_key=api_key)
+
+if 'OPENAI_API_KEY' in st.secrets:
+  st.success('API key already provided!', icon='✅')
+  api_key = st.secrets['OPENAI_API_KEY']
+else:
+  api_key = st.text_input('Enter OpenAI API token:', type='password')
+  if not (api_key.startswith('sk-') and len(api_key)==51):
+    st.warning('Please enter your credentials!', icon='⚠️')
+  else:
+    st.success('Proceed to entering your prompt message!', icon='👇')
 
 tabs = st.tabs(['Show', 'Tell'])
 
